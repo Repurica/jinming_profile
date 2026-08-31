@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Cormorant_Garamond, IBM_Plex_Mono, IBM_Plex_Sans } from "next/font/google";
 import type { ReactNode } from "react";
 import { PersonJsonLd } from "@/components/seo/person-json-ld";
+import { ExperienceShell } from "@/components/experience/experience-shell";
 import "./globals.css";
 
 const display = Cormorant_Garamond({
@@ -51,7 +52,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
     <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
       <body>
         <PersonJsonLd />
-        {children}
+        <ExperienceShell>{children}</ExperienceShell>
       </body>
     </html>
   );

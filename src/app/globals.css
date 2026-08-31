@@ -97,6 +97,212 @@ a {
   letter-spacing: 0.16em;
 }
 
+[data-lens="fintech"] { --accent: var(--fintech); }
+[data-lens="engineering"] { --accent: var(--engineering); }
+[data-lens="security"] { --accent: var(--security); }
+[data-lens="workflow"] { --accent: var(--workflow); }
+
+.lens-control {
+  display: grid;
+  gap: 0.75rem;
+  border-top: 1px solid color-mix(in srgb, var(--ink), transparent 75%);
+  padding-top: 0.75rem;
+}
+
+.lens-title,
+.lens-options button,
+.system-dock,
+.mobile-nav,
+.command-palette,
+.custom-cursor {
+  font-family: var(--font-mono), monospace;
+}
+
+.lens-title {
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.18em;
+}
+
+.lens-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+}
+
+.lens-options button {
+  border: 1px solid color-mix(in srgb, var(--ink), transparent 76%);
+  background: transparent;
+  color: var(--ink);
+  padding: 0.55rem 0.75rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  transition: background var(--micro), color var(--micro), border-color var(--micro);
+}
+
+.lens-options button span {
+  color: var(--muted);
+  margin-right: 0.5rem;
+}
+
+.lens-options button[aria-checked="true"] {
+  border-color: var(--accent);
+  background: var(--accent);
+  color: white;
+}
+
+.lens-options button[aria-checked="true"] span { color: currentColor; }
+
+.system-dock {
+  position: fixed;
+  z-index: 80;
+  right: 1rem;
+  bottom: 1rem;
+  left: 1rem;
+  display: grid;
+  grid-template-columns: 1.4fr repeat(5, 1fr) 0.4fr;
+  align-items: stretch;
+  min-height: 3.75rem;
+  border: 1px solid color-mix(in srgb, white, transparent 80%);
+  background: color-mix(in srgb, var(--ink), transparent 4%);
+  color: var(--paper);
+  box-shadow: 0 1.5rem 5rem color-mix(in srgb, var(--ink), transparent 65%);
+}
+
+.system-dock a,
+.dock-status,
+.dock-command {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  border-right: 1px solid color-mix(in srgb, white, transparent 86%);
+  padding: 0.6rem 0.9rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+}
+
+.system-dock a { transition: background var(--micro), color var(--micro); }
+.system-dock a:hover { background: var(--paper); color: var(--ink); }
+.system-dock a span { color: var(--muted); font-size: 0.55rem; }
+.dock-status i { width: 0.45rem; height: 0.45rem; border-radius: 50%; background: var(--accent); }
+.dock-command { justify-content: center; border-right: 0; color: var(--muted); }
+
+.mobile-nav { display: none; }
+
+.palette-backdrop {
+  position: fixed;
+  z-index: 120;
+  inset: 0;
+  display: grid;
+  place-items: start center;
+  padding: 12vh 1rem 1rem;
+  background: color-mix(in srgb, var(--ink), transparent 24%);
+  backdrop-filter: blur(10px);
+}
+
+.command-palette {
+  width: min(43rem, 100%);
+  border: 1px solid var(--ink);
+  background: var(--paper);
+  box-shadow: 0 2rem 8rem color-mix(in srgb, black, transparent 45%);
+}
+
+.command-palette header,
+.command-palette footer {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.9rem 1rem;
+  font-size: 0.63rem;
+  letter-spacing: 0.13em;
+}
+
+.command-palette header { border-bottom: 1px solid var(--ink); }
+.command-palette footer { border-top: 1px solid var(--ink); color: var(--muted); }
+.command-palette kbd { border: 1px solid var(--muted); padding: 0.1rem 0.3rem; }
+
+.command-list { display: grid; }
+.command-list button {
+  display: flex;
+  justify-content: space-between;
+  border: 0;
+  border-bottom: 1px solid color-mix(in srgb, var(--ink), transparent 80%);
+  background: transparent;
+  padding: 1rem;
+  text-align: left;
+}
+.command-list button:hover,
+.command-list button:focus-visible { background: var(--accent); color: white; }
+.command-list small { color: var(--muted); }
+.command-list button:hover small,
+.command-list button:focus-visible small { color: currentColor; }
+
+.custom-cursor {
+  position: fixed;
+  z-index: 150;
+  top: 0;
+  left: 0;
+  display: none;
+  pointer-events: none;
+}
+
+.custom-cursor::before {
+  content: "";
+  position: absolute;
+  width: 0.55rem;
+  height: 0.55rem;
+  translate: -50% -50%;
+  border: 1px solid var(--paper);
+  background: var(--ink);
+  rotate: 45deg;
+}
+
+.custom-cursor span {
+  position: absolute;
+  top: 0.7rem;
+  left: 0.7rem;
+  width: max-content;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.25rem 0.4rem;
+  font-size: 0.55rem;
+  letter-spacing: 0.08em;
+}
+
+.custom-cursor span:empty { display: none; }
+.magnetic { display: inline-flex; padding: 0.35rem; margin: -0.35rem; }
+.magnetic > span { display: inline-flex; transition: transform var(--ui) var(--ease-system); }
+
+@media (pointer: fine) and (min-width: 901px) {
+  body,
+  a,
+  button { cursor: none; }
+  .custom-cursor { display: block; }
+}
+
+@media (max-width: 900px) {
+  body { padding-top: 3.35rem; }
+  .system-dock { display: none; }
+  .mobile-nav {
+    position: fixed;
+    z-index: 90;
+    top: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    min-height: 3.35rem;
+    border-bottom: 1px solid color-mix(in srgb, var(--ink), transparent 76%);
+    background: color-mix(in srgb, var(--paper), transparent 8%);
+    padding: 0 1rem;
+    backdrop-filter: blur(12px);
+  }
+  .mobile-nav a { font-size: 0.58rem; letter-spacing: 0.08em; text-decoration: none; }
+  .mobile-nav .mobile-mark { margin-right: auto; font-weight: 600; }
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;
