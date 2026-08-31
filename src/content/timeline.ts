@@ -1,0 +1,72 @@
+import type { TimelineEntry } from "./types";
+
+export const timelineEntries: readonly TimelineEntry[] = [
+  {
+    id: "bsc-start",
+    year: 2022,
+    title: "SMU Bachelor of Science begins",
+    detail: "Financial Technology major with a second major in Cybersecurity.",
+    category: "education",
+  },
+  {
+    id: "ellipsis-mentor",
+    year: 2023,
+    title: "SMU Ellipsis Coders Assembly",
+    detail: "Mentoring in web application development, programming concepts, and debugging.",
+    category: "leadership",
+    projectSlug: "smu-ellipsis-coders-assembly",
+  },
+  {
+    id: "sbs-internship",
+    year: 2024,
+    title: "SBS Transit",
+    detail: "Cybersecurity internship across training, phishing coordination, auditing, and document risk.",
+    category: "work",
+    projectSlug: "sbs-transit",
+  },
+  {
+    id: "caritas",
+    year: 2024,
+    title: "Project Caritas IX",
+    detail: "Logistics Head designing and implementing operational tracking systems.",
+    category: "leadership",
+    projectSlug: "project-caritas-ix",
+  },
+  {
+    id: "bsc-completion",
+    year: 2025,
+    title: "Bachelor of Science completion",
+    detail: "Singapore Management University.",
+    category: "education",
+  },
+  {
+    id: "mitb-start",
+    year: 2025,
+    title: "Master of IT in Business",
+    detail: "Financial Technology & Analytics at Singapore Management University.",
+    category: "education",
+  },
+  {
+    id: "mafe-start",
+    year: 2025,
+    title: "MaFe Bento",
+    detail: "Full Stack Web Developer working from workflows through deployment and iteration.",
+    category: "work",
+    projectSlug: "mafe-bento",
+  },
+  {
+    id: "mafe-continue",
+    year: 2026,
+    title: "MaFe Bento continues",
+    detail: "Full-stack and workflow-system work through May 2026.",
+    category: "work",
+    projectSlug: "mafe-bento",
+  },
+  {
+    id: "mitb-continue",
+    year: 2026,
+    title: "Master of IT in Business continues",
+    detail: "Financial Technology & Analytics through December 2026.",
+    category: "education",
+  },
+] as const;
