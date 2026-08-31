@@ -377,6 +377,67 @@ a {
 
 .system-map-mobile { display: none; }
 
+.proof-section { padding-inline: 0; }
+.proof-section > .chapter-header { padding-inline: clamp(1rem, 4vw, 4rem); }
+.mafe-story { height: 100svh; min-height: 42rem; overflow: hidden; border-block: 1px solid var(--ink); background: var(--paper); }
+.mafe-story-track { display: flex; width: 500%; height: 100%; }
+.mafe-story article { position: relative; display: grid; align-content: center; width: 20%; padding: clamp(2rem, 7vw, 8rem); overflow: hidden; }
+.mafe-story article + article { border-left: 1px solid var(--ink); }
+.mafe-story article > span { color: var(--accent); font: 0.62rem/1 var(--font-mono), monospace; letter-spacing: 0.14em; }
+.mafe-story article h3 { max-width: 11ch; margin: 2rem 0; font: 600 clamp(5rem, 12vw, 12rem)/0.72 var(--font-display), serif; letter-spacing: -0.07em; }
+.mafe-story article p { max-width: 34rem; margin: 0; font-size: clamp(1rem, 1.5vw, 1.35rem); line-height: 1.55; }
+.mafe-story article i { position: absolute; right: 10%; bottom: 8%; width: clamp(5rem, 16vw, 15rem); aspect-ratio: 1; border: 1px solid var(--accent); border-radius: 50%; opacity: 0.25; }
+.mafe-story article i::before { content: ""; position: absolute; inset: 25%; border: inherit; rotate: 45deg; }
+
+.order-engine,
+.loan-engine { margin: clamp(5rem, 9vw, 9rem) clamp(1rem, 4vw, 4rem) 0; border: 1px solid var(--ink); }
+.engine-header { display: flex; justify-content: space-between; align-items: stretch; border-bottom: 1px solid var(--ink); }
+.engine-header > div { display: grid; gap: 0.5rem; padding: 1.1rem 1.25rem; }
+.engine-header span,
+.engine-header > p { font: 0.56rem/1 var(--font-mono), monospace; letter-spacing: 0.12em; }
+.engine-header h3 { margin: 0; font: 600 2.8rem/0.85 var(--font-display), serif; }
+.engine-header button { display: flex; align-items: center; gap: 3rem; border: 0; border-left: 1px solid var(--ink); background: var(--accent); color: white; padding: 0 1.5rem; font: 0.65rem/1 var(--font-mono), monospace; letter-spacing: 0.1em; text-transform: uppercase; }
+.engine-header button:hover { background: var(--ink); }
+.engine-header > p { align-self: center; margin: 0; padding: 1rem 1.25rem; color: var(--muted); }
+.engine-disclaimer { margin: 0; border-bottom: 1px solid var(--ink); padding: 0.75rem 1.25rem; color: var(--muted); font: 0.52rem/1 var(--font-mono), monospace; letter-spacing: 0.11em; }
+.order-track { position: relative; height: 8rem; margin: 0 1.25rem; }
+.order-rail { position: absolute; top: 50%; right: 0; left: 0; height: 1px; background: var(--ink); }
+.order-rail::before,
+.order-rail::after { content: ""; position: absolute; top: -0.3rem; width: 0.65rem; height: 0.65rem; border: 1px solid var(--ink); background: var(--paper); rotate: 45deg; }
+.order-rail::before { left: 0; }
+.order-rail::after { right: 0; }
+.order-ticket { position: absolute; z-index: 2; top: 1.25rem; left: 0; display: grid; width: 5.4rem; height: 5.4rem; border: 1px solid var(--ink); background: var(--paper); padding: 0.65rem; box-shadow: 0.4rem 0.4rem 0 var(--accent); }
+.order-ticket span { font: 0.48rem/1 var(--font-mono), monospace; letter-spacing: 0.1em; }
+.order-ticket strong { align-self: center; font: 600 1.45rem/1 var(--font-display), serif; }
+.order-ticket i { width: 70%; height: 0.35rem; background: repeating-linear-gradient(90deg, var(--ink) 0 1px, transparent 1px 3px); }
+.process-stages { display: grid; grid-template-columns: repeat(6, 1fr); margin: 0; padding: 0; border-top: 1px solid var(--ink); list-style: none; }
+.process-stage { display: grid; align-content: start; gap: 0.75rem; min-height: 13rem; padding: 1rem; transition: background var(--ui), color var(--ui); }
+.process-stage + .process-stage { border-left: 1px solid var(--ink); }
+.process-stage > span { color: var(--muted); font: 0.52rem/1 var(--font-mono), monospace; }
+.process-stage strong { font: 500 clamp(0.8rem, 1vw, 1.05rem)/1.1 var(--font-mono), monospace; }
+.process-stage p { margin: 0; color: var(--muted); font-size: 0.7rem; line-height: 1.5; }
+.process-stage[data-active="true"] { background: var(--ink); color: var(--paper); }
+.process-stage[data-active="true"] p { color: color-mix(in srgb, var(--paper), transparent 22%); }
+.sr-status { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0; }
+
+.case-jump { display: flex; justify-content: space-between; margin: 0 clamp(1rem, 4vw, 4rem); border: 1px solid var(--ink); border-top: 0; padding: 0.85rem 1rem; font: 0.56rem/1 var(--font-mono), monospace; letter-spacing: 0.1em; }
+.case-jump a { color: var(--accent); text-decoration: none; }
+
+.loan-perspectives { display: grid; grid-template-columns: repeat(3, 1fr); }
+.loan-perspectives button { border: 0; border-right: 1px solid var(--ink); border-bottom: 1px solid var(--ink); background: transparent; padding: 1rem; font: 0.6rem/1.2 var(--font-mono), monospace; letter-spacing: 0.08em; text-transform: uppercase; }
+.loan-perspectives button:last-child { border-right: 0; }
+.loan-perspectives button[aria-checked="true"] { background: var(--ink); color: var(--paper); }
+.loan-perspective-note { display: grid; grid-template-columns: 1fr 3fr; border-bottom: 1px solid var(--ink); padding: 1.25rem; }
+.loan-perspective-note span { color: var(--accent); font: 0.52rem/1 var(--font-mono), monospace; letter-spacing: 0.11em; }
+.loan-perspective-note p { max-width: 42rem; margin: 0; }
+.loan-stages { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; padding: 0; list-style: none; }
+.loan-stages li { position: relative; display: grid; align-content: space-between; min-height: 11rem; padding: 1.1rem; opacity: 0.35; transition: opacity var(--ui), background var(--ui); }
+.loan-stages li + li { border-left: 1px solid var(--ink); }
+.loan-stages li[data-emphasis="true"] { opacity: 1; background: color-mix(in srgb, var(--accent), transparent 92%); }
+.loan-stages span { color: var(--muted); font: 0.52rem/1 var(--font-mono), monospace; }
+.loan-stages strong { max-width: 14ch; font: 500 clamp(0.9rem, 1.2vw, 1.2rem)/1.2 var(--font-mono), monospace; }
+.loan-stages i { position: absolute; right: 1rem; bottom: 1rem; color: var(--accent); font-style: normal; }
+
 [data-lens="fintech"] { --accent: var(--fintech); }
 [data-lens="engineering"] { --accent: var(--engineering); }
 [data-lens="security"] { --accent: var(--security); }
@@ -635,6 +696,29 @@ a {
   .mobile-map-entry > button small { grid-column: 2; margin-top: 0.4rem; }
   .mobile-map-entry > button i { grid-column: 3; grid-row: 1 / 3; color: var(--accent); font-style: normal; }
   .mobile-map-entry .system-preview { margin: 0.5rem 0 1rem 2rem; border: 1px solid color-mix(in srgb, var(--paper), transparent 68%); }
+
+  .mafe-story { height: auto; min-height: 0; }
+  .mafe-story-track { display: grid; width: auto; height: auto; transform: none !important; }
+  .mafe-story article { width: auto; min-height: 70svh; padding: 4rem 1rem; }
+  .mafe-story article + article { border-top: 1px solid var(--ink); border-left: 0; }
+  .mafe-story article h3 { font-size: clamp(4.5rem, 23vw, 7rem); }
+  .order-engine,
+  .loan-engine { margin-top: 5rem; }
+  .engine-header { align-items: stretch; }
+  .engine-header h3 { font-size: 2rem; }
+  .engine-header button { gap: 0.75rem; padding-inline: 0.8rem; }
+  .engine-header > p { display: none; }
+  .process-stages { grid-template-columns: 1fr; }
+  .process-stage { min-height: auto; grid-template-columns: 2rem minmax(7rem, 0.7fr) 1fr; align-items: start; gap: 0.75rem; }
+  .process-stage + .process-stage { border-top: 1px solid var(--ink); border-left: 0; }
+  .process-stage p { margin-top: -0.2rem; }
+  .case-jump { gap: 1rem; }
+  .loan-perspectives { grid-template-columns: 1fr; }
+  .loan-perspectives button { border-right: 0; text-align: left; }
+  .loan-perspective-note { grid-template-columns: 1fr; gap: 0.75rem; }
+  .loan-stages { grid-template-columns: 1fr; }
+  .loan-stages li { min-height: 7rem; }
+  .loan-stages li + li { border-top: 1px solid var(--ink); border-left: 0; }
 }
 
 @media (prefers-reduced-motion: reduce) {

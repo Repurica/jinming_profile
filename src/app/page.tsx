@@ -1,5 +1,6 @@
 import { ProfileHero } from "@/components/home/profile-hero";
 import { SystemMapSection } from "@/components/home/system-map-section";
+import { ProofOfWorkSection } from "@/components/home/proof-of-work-section";
 
 export default function Home() {
   return (
@@ -12,6 +13,7 @@ export default function Home() {
           <ProfileHero />
         </div>
         <SystemMapSection />
+        <ProofOfWorkSection />
       </main>
     </>
   );
