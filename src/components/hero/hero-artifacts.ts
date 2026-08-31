@@ -1,0 +1,42 @@
+export const heroArtifacts = [
+  {
+    id: "order",
+    title: "Order ticket",
+    code: "ORDER / 0526",
+    detail: "CUSTOMER → KITCHEN",
+    href: "/work/mafe-bento",
+    tone: "workflow",
+  },
+  {
+    id: "loan",
+    title: "Loan sheet",
+    code: "PROCESS / 04",
+    detail: "APPLICATION → MAINTENANCE",
+    href: "/work/loan-ranger",
+    tone: "fintech",
+  },
+  {
+    id: "risk",
+    title: "Security warning",
+    code: "RISK / AUDIT",
+    detail: "TRAINING · PHISHING · RISK",
+    href: "/work/sbs-transit",
+    tone: "security",
+  },
+  {
+    id: "logistics",
+    title: "Logistics label",
+    code: "TRANSIT / IX",
+    detail: "PURCHASE · INVENTORY · RECORD",
+    href: "/work/project-caritas-ix",
+    tone: "engineering",
+  },
+  {
+    id: "architecture",
+    title: "Architecture paper",
+    code: "SYSTEM / SCALE",
+    detail: "DATA FLOW · CLOUD",
+    href: "/work/mafe-bento",
+    tone: "engineering",
+  },
+] as const;
