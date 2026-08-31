@@ -1,0 +1,113 @@
+@import "tailwindcss";
+
+:root {
+  --ink: #0b0b0d;
+  --paper: #f1efe9;
+  --muted: #8d8a82;
+  --fintech: #775cff;
+  --engineering: #3b82f6;
+  --security: #087f68;
+  --workflow: #e4512b;
+  --accent: var(--fintech);
+  --micro: 160ms;
+  --ui: 320ms;
+  --section: 760ms;
+  --cinematic: 1200ms;
+  --ease-system: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: var(--paper);
+  color: var(--ink);
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans), sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--paper);
+}
+
+button,
+a,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+
+.skip-link {
+  position: fixed;
+  z-index: 1000;
+  top: 0.75rem;
+  left: 0.75rem;
+  translate: 0 -200%;
+  background: var(--ink);
+  color: var(--paper);
+  padding: 0.75rem 1rem;
+  font-family: var(--font-mono), monospace;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  translate: 0;
+}
+
+.foundation-shell {
+  min-height: 100svh;
+  display: grid;
+  align-content: center;
+  gap: 1rem;
+  padding: clamp(1.5rem, 6vw, 6rem);
+}
+
+.foundation-shell h1 {
+  margin: 0;
+  font-family: var(--font-display), serif;
+  font-size: clamp(4rem, 16vw, 13rem);
+  font-weight: 600;
+  letter-spacing: -0.065em;
+  line-height: 0.78;
+}
+
+.system-label {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.16em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
