@@ -1,6 +1,6 @@
 "use client";
 
-import type { Project, ProjectSlug } from "@/content";
+import { projects, type Project, type ProjectSlug } from "@/content";
 import { mapEdges, mapNodes } from "./map-model";
 
 export function SystemMapDesktop({
@@ -34,6 +34,7 @@ export function SystemMapDesktop({
       <div className="map-origin" aria-hidden="true"><span>BUSINESS</span><i /><span>SYSTEM</span></div>
       {mapNodes.map((node) => {
         if (node.kind === "project") {
+          const project = projects.find((item) => item.slug === node.projectSlug);
           return (
             <button
               className="map-node project-node"
@@ -42,6 +43,7 @@ export function SystemMapDesktop({
               style={{ left: `${node.x}%`, top: `${node.y}%` }}
               aria-pressed={activeProject.slug === node.projectSlug}
               data-connected={activeProject.slug === node.projectSlug ? "true" : "false"}
+              data-lenses={project?.lenses.join(" ")}
               onClick={() => node.projectSlug && onSelect(node.projectSlug)}
             >
               <span aria-hidden="true">PROJECT</span>{node.label}
