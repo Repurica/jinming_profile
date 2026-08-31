@@ -1,4 +1,5 @@
 import { ProfileHero } from "@/components/home/profile-hero";
+import { SystemMapSection } from "@/components/home/system-map-section";
 
 export default function Home() {
   return (
@@ -10,6 +11,7 @@ export default function Home() {
         <div id="system">
           <ProfileHero />
         </div>
+        <SystemMapSection />
       </main>
     </>
   );
