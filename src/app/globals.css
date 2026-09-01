@@ -595,6 +595,29 @@ html[data-enhanced="true"] .initialization {
   padding: clamp(4rem, 8vw, 8rem) clamp(1rem, 4vw, 4rem);
 }
 
+html[data-enhanced="true"] .route-header nav,
+html[data-enhanced="true"] .route-header > p,
+html[data-enhanced="true"] .route-header h1,
+html[data-enhanced="true"] .route-header > strong,
+html[data-enhanced="true"] .route-content > * {
+  animation: route-enter var(--section) var(--ease-system) both;
+  animation-delay: var(--route-enter-delay, 280ms);
+}
+
+html[data-enhanced="true"] .route-header nav { --route-enter-delay: 40ms; }
+html[data-enhanced="true"] .route-header > p { --route-enter-delay: 100ms; }
+html[data-enhanced="true"] .route-header h1 { --route-enter-delay: 160ms; }
+html[data-enhanced="true"] .route-header > strong { --route-enter-delay: 220ms; }
+html[data-enhanced="true"] .route-content > * { --route-enter-delay: 280ms; }
+html[data-enhanced="true"] .route-content > :nth-child(2) { --route-enter-delay: 360ms; }
+html[data-enhanced="true"] .route-content > :nth-child(3) { --route-enter-delay: 440ms; }
+html[data-enhanced="true"] .route-content > :nth-child(4) { --route-enter-delay: 520ms; }
+
+@keyframes route-enter {
+  from { opacity: 0.35; transform: translateY(0.75rem); }
+  to { opacity: 1; transform: none; }
+}
+
 .profile-route-content {
   display: grid;
   grid-template-columns: minmax(14rem, 0.8fr) repeat(2, minmax(0, 1fr));
@@ -1230,6 +1253,16 @@ html[data-enhanced="true"] .initialization {
   .mafe-story article { width: auto; min-height: 70svh; padding: 4rem 1rem; }
   .mafe-story article + article { border-top: 1px solid var(--ink); border-left: 0; }
   .mafe-story article h3 { font-size: clamp(4.5rem, 23vw, 7rem); }
+
+  html[data-enhanced="true"] .route-header nav,
+  html[data-enhanced="true"] .route-header > p,
+  html[data-enhanced="true"] .route-header h1,
+  html[data-enhanced="true"] .route-header > strong,
+  html[data-enhanced="true"] .route-content > * {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 
   *,
   *::before,
