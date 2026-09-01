@@ -1,4 +1,7 @@
 import { render, screen } from "@testing-library/react";
+import { existsSync } from "node:fs";
+import { dirname, resolve } from "node:path";
+import { fileURLToPath } from "node:url";
 import { expect, it } from "vitest";
 import { ExperienceProvider } from "@/components/experience/experience-provider";
 import Home from "./page";
@@ -15,4 +18,10 @@ it("exposes a skip link and main landmark", () => {
     "#main-content",
   );
   expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
+});
+
+it("declares a browser icon so production navigation stays console-clean", () => {
+  const appDirectory = dirname(fileURLToPath(import.meta.url));
+
+  expect(existsSync(resolve(appDirectory, "icon.svg"))).toBe(true);
 });
