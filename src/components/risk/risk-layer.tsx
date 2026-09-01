@@ -1,6 +1,5 @@
 "use client";
 
-import { motion } from "motion/react";
 import { useState } from "react";
 import { campaignStages, risks } from "./risk-timeline";
 
@@ -23,17 +22,14 @@ export function RiskLayer() {
           </button>
         ))}
       </div>
-      <motion.div
+      <div
         className="risk-evidence"
         role="region"
         aria-label={`${active.label} risk evidence`}
-        key={active.id}
-        initial={{ opacity: 0, y: 8 }}
-        animate={{ opacity: 1, y: 0 }}
       >
         <span>OBSERVED WORK / SBS TRANSIT</span>
         <p>{active.evidence}</p>
-      </motion.div>
+      </div>
       <div className="campaign-path" aria-label="Campaign timeline">
         <div className="campaign-line" aria-hidden="true" />
         {campaignStages.map((stage, index) => (
