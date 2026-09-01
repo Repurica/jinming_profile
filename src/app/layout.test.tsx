@@ -20,8 +20,9 @@ it("exposes a skip link and main landmark", () => {
   expect(screen.getByRole("main")).toHaveAttribute("id", "main-content");
 });
 
-it("declares a browser icon so production navigation stays console-clean", () => {
+it("declares browser icons so production navigation stays console-clean", () => {
   const appDirectory = dirname(fileURLToPath(import.meta.url));
 
   expect(existsSync(resolve(appDirectory, "icon.svg"))).toBe(true);
+  expect(existsSync(resolve(appDirectory, "../../public/favicon.ico"))).toBe(true);
 });
