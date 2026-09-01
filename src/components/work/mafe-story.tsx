@@ -23,7 +23,12 @@ export function MafeStory() {
 
   useGSAP(
     () => {
-      if (reducedMotion || window.matchMedia("(max-width: 900px)").matches || !track.current) return;
+      if (
+        reducedMotion ||
+        window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+        window.matchMedia("(max-width: 900px)").matches ||
+        !track.current
+      ) return;
       const tween = gsap.to(track.current, {
         xPercent: -80,
         ease: "none",
@@ -38,7 +43,7 @@ export function MafeStory() {
       });
       return () => tween.kill();
     },
-    { scope: root, dependencies: [reducedMotion] },
+    { scope: root, dependencies: [reducedMotion], revertOnUpdate: true },
   );
 
   return (

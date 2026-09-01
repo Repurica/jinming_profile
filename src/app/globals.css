@@ -1213,6 +1213,19 @@ a {
     scroll-behavior: auto;
   }
 
+  body,
+  a,
+  button {
+    cursor: auto;
+  }
+
+  .custom-cursor { display: none; }
+  .mafe-story { height: auto; min-height: 0; overflow: visible; }
+  .mafe-story-track { display: grid; width: auto; height: auto; transform: none !important; }
+  .mafe-story article { width: auto; min-height: 70svh; padding: 4rem 1rem; }
+  .mafe-story article + article { border-top: 1px solid var(--ink); border-left: 0; }
+  .mafe-story article h3 { font-size: clamp(4.5rem, 23vw, 7rem); }
+
   *,
   *::before,
   *::after {
