@@ -24,6 +24,7 @@ const mono = IBM_Plex_Mono({
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
+const enhancementScript = `document.documentElement.dataset.enhanced = "true";`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
@@ -50,6 +51,9 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={`${display.variable} ${sans.variable} ${mono.variable}`}>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: enhancementScript }} />
+      </head>
       <body>
         <PersonJsonLd />
         <ExperienceShell>{children}</ExperienceShell>

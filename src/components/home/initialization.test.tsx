@@ -8,6 +8,11 @@ const animation = vi.hoisted(() => ({
   complete: undefined as (() => void) | undefined,
 }));
 
+const motionPreference = {
+  reduced: false,
+  listeners: new Set<() => void>(),
+};
+
 vi.mock("@gsap/react", async () => {
   const { useLayoutEffect } = await vi.importActual<typeof import("react")>("react");
 
@@ -48,19 +53,32 @@ vi.mock("split-type", () => ({
 }));
 
 function installMotionPreference(reducedMotion: boolean) {
+  motionPreference.reduced = reducedMotion;
+  motionPreference.listeners.clear();
   vi.spyOn(window, "matchMedia").mockImplementation(
     (query) =>
       ({
-        matches: reducedMotion && query.includes("prefers-reduced-motion"),
+        get matches() {
+          return motionPreference.reduced && query.includes("prefers-reduced-motion");
+        },
         media: query,
         onchange: null,
         addListener: () => undefined,
         removeListener: () => undefined,
-        addEventListener: () => undefined,
-        removeEventListener: () => undefined,
+        addEventListener: (_type: string, listener: () => void) => {
+          motionPreference.listeners.add(listener);
+        },
+        removeEventListener: (_type: string, listener: () => void) => {
+          motionPreference.listeners.delete(listener);
+        },
         dispatchEvent: () => false,
-      }) as MediaQueryList,
+      }) as unknown as MediaQueryList,
   );
+}
+
+function setMotionPreference(reducedMotion: boolean) {
+  motionPreference.reduced = reducedMotion;
+  motionPreference.listeners.forEach((listener) => listener());
 }
 
 function InitializationFixture() {
@@ -108,7 +126,18 @@ describe("Initialization", () => {
     expect(screen.getByRole("main")).toHaveFocus();
   });
 
-  it("does not move focus to main when the animation completes automatically", () => {
+  it("moves focus to main when the animation completes with dialog focus", () => {
+    render(<InitializationFixture />);
+
+    expect(screen.getByRole("button", { name: "Skip initialization" })).toHaveFocus();
+
+    act(() => animation.complete?.());
+
+    expect(screen.queryByRole("dialog", { name: "System initialization" })).not.toBeInTheDocument();
+    expect(screen.getByRole("main")).toHaveFocus();
+  });
+
+  it("preserves external focus when the animation completes", () => {
     render(<InitializationFixture />);
     const underlying = screen.getByRole("button", { name: "Underlying control" });
     underlying.focus();
@@ -120,21 +149,34 @@ describe("Initialization", () => {
     expect(screen.getByRole("main")).not.toHaveFocus();
   });
 
-  it("does not steal focus while bypassing initialization for reduced motion", async () => {
-    installMotionPreference(true);
-    const origin = document.createElement("button");
-    document.body.append(origin);
-    origin.focus();
-
+  it("moves focus to main when reduced motion changes with dialog focus", async () => {
     render(<InitializationFixture />);
+
+    expect(screen.getByRole("button", { name: "Skip initialization" })).toHaveFocus();
+
+    act(() => setMotionPreference(true));
 
     await waitFor(() =>
       expect(
         screen.queryByRole("dialog", { name: "System initialization" }),
       ).not.toBeInTheDocument(),
     );
-    expect(origin).toHaveFocus();
+    expect(screen.getByRole("main")).toHaveFocus();
+  });
+
+  it("preserves external focus when reduced motion changes", async () => {
+    render(<InitializationFixture />);
+    const underlying = screen.getByRole("button", { name: "Underlying control" });
+    underlying.focus();
+
+    act(() => setMotionPreference(true));
+
+    await waitFor(() =>
+      expect(
+        screen.queryByRole("dialog", { name: "System initialization" }),
+      ).not.toBeInTheDocument(),
+    );
+    expect(underlying).toHaveFocus();
     expect(screen.getByRole("main")).not.toHaveFocus();
-    origin.remove();
   });
 });

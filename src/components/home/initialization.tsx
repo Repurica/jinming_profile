@@ -3,7 +3,7 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import SplitType from "split-type";
-import { useEffect, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useExperience } from "@/components/experience/experience-provider";
 
 gsap.registerPlugin(useGSAP);
@@ -12,6 +12,18 @@ export function Initialization() {
   const root = useRef<HTMLDivElement>(null);
   const skip = useRef<HTMLButtonElement>(null);
   const { reducedMotion, initialized, setInitialized } = useExperience();
+
+  const completeInitialization = useCallback(
+    (focusMain: "always" | "if-dialog-focused") => {
+      const shouldFocusMain =
+        focusMain === "always" || Boolean(root.current?.contains(document.activeElement));
+      setInitialized(true);
+      if (shouldFocusMain) {
+        document.querySelector<HTMLElement>("#main-content")?.focus();
+      }
+    },
+    [setInitialized],
+  );
 
   useEffect(() => {
     if (initialized || reducedMotion) return;
@@ -22,15 +34,17 @@ export function Initialization() {
   useGSAP(
     () => {
       if (initialized) return;
-      if (reducedMotion) {
-        setInitialized(true);
+      if (reducedMotion || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        completeInitialization("if-dialog-focused");
         return;
       }
 
       const title = root.current?.querySelector<HTMLElement>("[data-init-title]");
       if (!title) return;
       const split = new SplitType(title, { types: "chars" });
-      const timeline = gsap.timeline({ onComplete: () => setInitialized(true) });
+      const timeline = gsap.timeline({
+        onComplete: () => completeInitialization("if-dialog-focused"),
+      });
       timeline
         .from(split.chars, { yPercent: 110, opacity: 0, stagger: 0.035, duration: 0.55 })
         .to("[data-init-line]", { scaleX: 1, duration: 0.55 }, "<0.1")
@@ -41,14 +55,13 @@ export function Initialization() {
         timeline.kill();
       };
     },
-    { scope: root, dependencies: [reducedMotion, initialized, setInitialized] },
+    { scope: root, dependencies: [reducedMotion, initialized, completeInitialization] },
   );
 
-  if (initialized || reducedMotion) return null;
+  if (initialized) return null;
 
   function skipInitialization() {
-    setInitialized(true);
-    document.querySelector<HTMLElement>("#main-content")?.focus();
+    completeInitialization("always");
   }
 
   return (

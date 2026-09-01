@@ -112,13 +112,17 @@ a {
   position: fixed;
   z-index: 200;
   inset: 0;
-  display: grid;
+  display: none;
   grid-template-rows: auto 1fr auto auto;
   align-items: center;
   background: var(--ink);
   color: var(--paper);
   padding: clamp(1.5rem, 4vw, 4rem);
   overflow: hidden;
+}
+
+html[data-enhanced="true"] .initialization {
+  display: grid;
 }
 
 .init-skip {
@@ -951,10 +955,10 @@ a {
 .magnetic > span { display: inline-flex; transition: transform var(--ui) var(--ease-system); }
 
 @media (pointer: fine) and (min-width: 901px) {
-  body,
-  a,
-  button { cursor: none; }
-  .custom-cursor { display: block; }
+  html[data-enhanced="true"] body,
+  html[data-enhanced="true"] a,
+  html[data-enhanced="true"] button { cursor: none; }
+  html[data-enhanced="true"] .custom-cursor { display: block; }
 }
 
 @media (max-width: 900px) {
@@ -1216,10 +1220,11 @@ a {
   body,
   a,
   button {
-    cursor: auto;
+    cursor: auto !important;
   }
 
-  .custom-cursor { display: none; }
+  .initialization,
+  .custom-cursor { display: none !important; }
   .mafe-story { height: auto; min-height: 0; overflow: visible; }
   .mafe-story-track { display: grid; width: auto; height: auto; transform: none !important; }
   .mafe-story article { width: auto; min-height: 70svh; padding: 4rem 1rem; }
