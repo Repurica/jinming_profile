@@ -4,6 +4,7 @@ import { ProofOfWorkSection } from "@/components/home/proof-of-work-section";
 import { RiskSection } from "@/components/home/risk-section";
 import { CapabilitySection } from "@/components/home/capability-section";
 import { TimelineSection } from "@/components/home/timeline-section";
+import { SignalSection } from "@/components/home/signal-section";
 
 export default function Home() {
   return (
@@ -20,6 +21,7 @@ export default function Home() {
         <RiskSection />
         <CapabilitySection />
         <TimelineSection />
+        <SignalSection />
       </main>
     </>
   );
