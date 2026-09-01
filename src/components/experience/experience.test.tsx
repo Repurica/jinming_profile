@@ -1,4 +1,4 @@
-import { render, screen, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, screen, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { describe, expect, it, vi } from "vitest";
@@ -44,7 +44,9 @@ describe("global experience controls", () => {
     origin.focus();
     await user.keyboard("{Control>}k{/Control}");
 
-    expect(screen.getByRole("dialog", { name: "System command palette" })).toBeVisible();
+    await waitFor(() => {
+      expect(screen.getByRole("dialog", { name: "System command palette" })).toBeVisible();
+    });
     await user.click(screen.getByRole("button", { name: /open resume/i }));
     expect(navigate).toHaveBeenCalledWith("/resume");
 
