@@ -23,6 +23,17 @@ function blockAfter(source: string, marker: string) {
   throw new Error(`unclosed block for ${marker}`);
 }
 
+function selectorBeforeBlock(source: string, marker: string) {
+  const markerIndex = source.indexOf(marker);
+  expect(markerIndex, `missing ${marker}`).toBeGreaterThanOrEqual(0);
+
+  const openIndex = source.indexOf("{", markerIndex);
+  return source
+    .slice(markerIndex, openIndex)
+    .split(",")
+    .map((selector) => selector.trim());
+}
+
 function expectDeclaration(rule: string, declaration: RegExp) {
   expect(rule).toMatch(declaration);
 }
@@ -31,8 +42,10 @@ describe("reduced-motion CSS fallbacks", () => {
   const reducedMotion = blockAfter(styles, "@media (prefers-reduced-motion: reduce)");
 
   it("restores a native cursor when the custom cursor is disabled", () => {
+    const cursorSelectors = selectorBeforeBlock(reducedMotion, "body,");
     const cursorRule = blockAfter(reducedMotion, "body,");
 
+    expect(cursorSelectors).toEqual(expect.arrayContaining(["body", "a", "button"]));
     expect(cursorRule).toMatch(/cursor:\s*auto/);
   });
 

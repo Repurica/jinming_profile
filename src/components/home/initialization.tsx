@@ -3,14 +3,21 @@
 import { useGSAP } from "@gsap/react";
 import { gsap } from "gsap";
 import SplitType from "split-type";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { useExperience } from "@/components/experience/experience-provider";
 
 gsap.registerPlugin(useGSAP);
 
 export function Initialization() {
   const root = useRef<HTMLDivElement>(null);
+  const skip = useRef<HTMLButtonElement>(null);
   const { reducedMotion, initialized, setInitialized } = useExperience();
+
+  useEffect(() => {
+    if (initialized || reducedMotion) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    skip.current?.focus();
+  }, [initialized, reducedMotion]);
 
   useGSAP(
     () => {
@@ -39,9 +46,25 @@ export function Initialization() {
 
   if (initialized || reducedMotion) return null;
 
+  function skipInitialization() {
+    setInitialized(true);
+    document.querySelector<HTMLElement>("#main-content")?.focus();
+  }
+
   return (
-    <div ref={root} className="initialization">
-      <button className="init-skip" type="button" onClick={() => setInitialized(true)}>
+    <div
+      ref={root}
+      className="initialization"
+      role="dialog"
+      aria-modal="true"
+      aria-label="System initialization"
+      onKeyDown={(event) => {
+        if (event.key !== "Tab") return;
+        event.preventDefault();
+        skip.current?.focus();
+      }}
+    >
+      <button ref={skip} className="init-skip" type="button" onClick={skipInitialization}>
         Skip initialization
       </button>
       <div className="init-register">
