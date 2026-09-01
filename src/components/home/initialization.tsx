@@ -40,7 +40,10 @@ export function Initialization() {
   if (initialized || reducedMotion) return null;
 
   return (
-    <div ref={root} className="initialization" aria-hidden="true">
+    <div ref={root} className="initialization">
+      <button className="init-skip" type="button" onClick={() => setInitialized(true)}>
+        Skip initialization
+      </button>
       <div className="init-register">
         <span>J/S — 2026</span>
         <span>STATE 00</span>

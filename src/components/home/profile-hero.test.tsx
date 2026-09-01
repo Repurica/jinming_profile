@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import userEvent from "@testing-library/user-event";
 import { afterEach, describe, expect, it, vi } from "vitest";
 import { ExperienceProvider } from "@/components/experience/experience-provider";
 import { Initialization } from "./initialization";
@@ -72,5 +73,18 @@ describe("profile hero", () => {
     await waitFor(() =>
       expect(screen.queryByText("SYSTEM INITIALIZATION")).not.toBeInTheDocument(),
     );
+  });
+
+  it("lets users skip the blocking initialization sequence", async () => {
+    const user = userEvent.setup();
+    render(
+      <ExperienceProvider>
+        <Initialization />
+      </ExperienceProvider>,
+    );
+
+    await user.click(screen.getByRole("button", { name: "Skip initialization" }));
+
+    expect(screen.queryByText("SYSTEM INITIALIZATION")).not.toBeInTheDocument();
   });
 });

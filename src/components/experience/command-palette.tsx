@@ -65,6 +65,21 @@ export function CommandPalette({ onNavigate }: { onNavigate: (destination: strin
             role="dialog"
             aria-modal="true"
             aria-label="System command palette"
+            onKeyDown={(event) => {
+              if (event.key !== "Tab") return;
+              const focusable = event.currentTarget.querySelectorAll<HTMLButtonElement>(
+                "button:not([disabled])",
+              );
+              const first = focusable[0];
+              const last = focusable[focusable.length - 1];
+              if (event.shiftKey && document.activeElement === first) {
+                event.preventDefault();
+                last?.focus();
+              } else if (!event.shiftKey && document.activeElement === last) {
+                event.preventDefault();
+                first?.focus();
+              }
+            }}
             initial={reducedMotion ? false : { y: 18, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: 8, opacity: 0 }}

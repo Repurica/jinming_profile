@@ -57,4 +57,26 @@ describe("global experience controls", () => {
     await waitForElementToBeRemoved(dialog);
     expect(origin).toHaveFocus();
   });
+
+  it("traps Tab and Shift+Tab within the open command dialog", async () => {
+    const user = userEvent.setup();
+    render(
+      <Shell>
+        <button type="button">Palette origin</button>
+        <CommandPalette onNavigate={() => undefined} />
+      </Shell>,
+    );
+
+    screen.getByRole("button", { name: "Palette origin" }).focus();
+    await user.keyboard("{Control>}k{/Control}");
+    const firstCommand = await screen.findByRole("button", { name: /open mafe bento/i });
+    const lastCommand = screen.getByRole("button", { name: /^about/i });
+    expect(firstCommand).toHaveFocus();
+
+    await user.tab({ shift: true });
+    expect(lastCommand).toHaveFocus();
+
+    await user.tab();
+    expect(firstCommand).toHaveFocus();
+  });
 });
